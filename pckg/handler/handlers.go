@@ -1,0 +1,48 @@
+package Handler
+
+import (
+	"github.com/kennnyz/go_pet/pckg/config"
+	"github.com/kennnyz/go_pet/pckg/models"
+	"github.com/kennnyz/go_pet/pckg/render"
+	"net/http"
+)
+
+//TemplateDate holds data sent from handlers to templates
+
+//Repo the repository used by handlers
+var Repo *Repository
+
+//Repository is the repository type
+type Repository struct {
+	App *config.AppConfig
+}
+
+//NewRepo create new repository
+func NewRepo(a *config.AppConfig) *Repository {
+	return &Repository{
+		App: a,
+	}
+}
+
+//NewHandlers sets the repository for the handlers
+func NewHandlers(r *Repository) {
+	Repo = r
+}
+
+func (m *Repository) Home(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "home.page.html", &models.TemplateDate{})
+}
+
+//perform some logic
+
+func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
+	// perform some logic
+	stringMap := make(map[string]string)
+	stringMap["test"] = "Hello again"
+
+	// send the data to the template
+	render.RenderTemplate(w, "about.page.html", &models.TemplateDate{
+		StringMap: stringMap,
+	})
+	// perform some logic
+}
