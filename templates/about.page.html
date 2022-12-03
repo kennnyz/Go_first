@@ -9,6 +9,12 @@
 </head>
 <body>
     <h1>It is About page!</h1>
-    <h2>Пользователь: {{.}}</h2>
+    <p>
+        {{if ne (index .StringMap "remote_ip") ""}}
+        Your remote IP address is {{index .StringMap "remote_ip"}}
+        {{else}}
+        I don't know your IP
+        {{end}}
+    </p>
 </body>
 </html>
